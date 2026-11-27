@@ -59,6 +59,8 @@ body {
   color: var(--text);
   line-height: 1.5;
   min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(13, 148, 136, 0.2);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -1392,19 +1394,23 @@ body.dark-mode .allowance-text {
   }
 
   .sidebar {
-    padding: 16px;
-    gap: 14px;
+    padding: 14px 16px;
+    gap: 12px;
   }
 
   .nav-menu {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 7px;
   }
 
   .nav-btn {
     width: auto;
-    padding: 8px 13px;
-    font-size: 0.9rem;
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 9px 12px;
+    min-height: 42px;
+    font-size: 0.88rem;
   }
 
   .nav-btn:hover,
@@ -1433,6 +1439,27 @@ body.dark-mode .allowance-text {
 }
 
 @media (max-width: 520px) {
+  .welcome-page {
+    padding: 14px 10px;
+    align-items: flex-start;
+  }
+
+  .welcome-card {
+    border-radius: 18px;
+  }
+
+  .welcome-hero {
+    padding: 24px 16px;
+  }
+
+  .welcome-quick-setup {
+    padding: 18px 16px 10px;
+  }
+
+  .welcome-features {
+    padding: 14px 16px 22px;
+  }
+
   .kpi-grid,
   .field-row,
   .summary-grid {
@@ -1441,16 +1468,68 @@ body.dark-mode .allowance-text {
 
   .content-area,
   .topbar {
+    padding: 14px;
+  }
+
+  .card {
     padding: 16px;
   }
 
   .welcome-title {
+    font-size: 1.55rem;
+  }
+
+  input,
+  select {
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  .btn {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .btn-small {
+    min-height: 38px;
+  }
+
+  .preset-chip {
+    min-height: 36px;
+    padding: 7px 12px;
+  }
+
+  .welcome-actions,
+  .data-actions,
+  .form-actions,
+  .autofill-row,
+  .history-summary-row,
+  .budget-form-row,
+  .photo-actions,
+  .filter-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group select,
+  .autofill-row select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .welcome-photo-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .calc-display {
     font-size: 1.65rem;
   }
 
-  .budget-form-row {
-    flex-direction: column;
-    align-items: stretch;
+  .calc-btn {
+    padding: 12px 6px;
+    min-height: 48px;
+    font-size: 1rem;
   }
 
   .expense-item {
@@ -1461,5 +1540,9 @@ body.dark-mode .allowance-text {
   .expense-right {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .row-actions .btn {
+    width: auto;
   }
 }
