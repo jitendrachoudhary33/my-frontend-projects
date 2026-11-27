@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendSmart - Hostel Expense Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- WELCOME PAGE -->
+  <section id="welcome-page" class="welcome-page" aria-label="Welcome to SpendSmart">
+    <div class="welcome-card">
+      <div class="welcome-hero">
+        <div class="welcome-brand-row">
+          <span class="brand-logo welcome-logo" aria-hidden="true">₹</span>
+          <span class="welcome-badge">✨ Hostel Survival Mode</span>
+        </div>
+        <h1 class="welcome-title">Welcome to SpendSmart</h1>
+        <p id="welcome-greeting" class="welcome-subtitle">
+          Track every chai, canteen meal, bus pass, and late-night snack — zero spreadsheets, pure vibes.
+        </p>
+
+        <div id="welcome-stats-strip" class="welcome-stats-strip hidden">
+          <div class="welcome-stat">
+            <span class="welcome-stat-label">Saved Entries</span>
+            <strong id="welcome-total-count">0</strong>
+          </div>
+          <div class="welcome-stat">
+            <span class="welcome-stat-label">Total Spent</span>
+            <strong id="welcome-total-spent">Rs. 0</strong>
+          </div>
+          <div class="welcome-stat">
+            <span class="welcome-stat-label">Monthly Budget</span>
+            <strong id="welcome-budget-pill">Not set</strong>
+          </div>
+        </div>
+      </div>
+
+      <form id="welcome-form" class="welcome-quick-setup" novalidate>
+        <div id="welcome-autofill-box" class="autofill-box hidden">
+          <span class="autofill-label">⚡ Autofill Previous Profile</span>
+          <div class="autofill-row">
+            <select id="autofill-profile-select" aria-label="Select previous profile"></select>
+            <button type="button" id="autofill-profile-btn" class="btn btn-secondary btn-small">
+              Autofill Previous Profile
+            </button>
+          </div>
+          <p id="welcome-autofill-msg" class="success-text hidden" aria-live="polite"></p>
+        </div>
+
+        <div class="welcome-photo-box">
+          <div id="welcome-photo-preview" class="avatar-circle welcome-avatar-preview" aria-hidden="true">HS</div>
+          <div class="welcome-photo-controls">
+            <span class="autofill-label">Profile Photo *</span>
+            <div class="photo-actions">
+              <label
+                for="welcome-photo-input"
+                id="welcome-photo-label"
+                class="btn btn-primary btn-small photo-upload-label"
+                tabindex="0"
+                role="button"
+              >
+                Choose Profile Photo *
+              </label>
+              <input
+                type="file"
+                id="welcome-photo-input"
+                accept="image/*"
+                class="hidden"
+              />
+              <button type="button" id="welcome-remove-photo-btn" class="btn btn-ghost btn-small hidden">
+                Remove Photo
+              </button>
+            </div>
+            <p id="welcome-photo-error" class="error-text" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <h2 class="card-title">Quick Setup Profile</h2>
+        <p class="section-note">
+          Fill or update your student profile details here before continuing.
+        </p>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="welcome-name-input">Full Name</label>
+            <input
+              type="text"
+              id="welcome-name-input"
+              placeholder="e.g. Aarav Sharma"
+            />
+          </div>
+          <div class="field-group">
+            <label for="welcome-roll-input">Student ID / Roll No.</label>
+            <input
+              type="text"
+              id="welcome-roll-input"
+              placeholder="e.g. CS2026-01"
+            />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="welcome-college-input">Hostel / College</label>
+            <input
+              type="text"
+              id="welcome-college-input"
+              placeholder="e.g. Hostel Block B"
+            />
+          </div>
+          <div class="field-group">
+            <label for="welcome-room-input">Room Number</label>
+            <input
+              type="text"
+              id="welcome-room-input"
+              placeholder="e.g. 204"
+            />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="welcome-course-input">Course &amp; Semester</label>
+            <input
+              type="text"
+              id="welcome-course-input"
+              placeholder="e.g. B.Tech CSE - Sem 4"
+            />
+          </div>
+          <div class="field-group">
+            <label for="welcome-allowance-input">Monthly Allowance (Rs.)</label>
+            <input
+              type="text"
+              id="welcome-allowance-input"
+              inputmode="decimal"
+              placeholder="e.g. 4000"
+            />
+            <p id="welcome-allowance-error" class="error-text" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="welcome-budget-input">Monthly Budget (Rs.)</label>
+            <input
+              type="text"
+              id="welcome-budget-input"
+              inputmode="decimal"
+              placeholder="e.g. 3000"
+            />
+            <p id="welcome-budget-error" class="error-text" aria-live="polite"></p>
+          </div>
+          <div class="field-group">
+            <label for="welcome-emergency-input">Emergency Contact (Optional)</label>
+            <input
+              type="text"
+              id="welcome-emergency-input"
+              placeholder="e.g. +91 98765 43210"
+            />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="welcome-goal-input">Saving Goal Note</label>
+          <input
+            type="text"
+            id="welcome-goal-input"
+            placeholder="e.g. Save Rs. 500 every month"
+          />
+        </div>
+
+        <p id="welcome-profile-msg" class="success-text hidden" aria-live="polite"></p>
+
+        <div class="welcome-actions">
+          <button type="submit" id="start-app-btn" class="btn btn-primary">
+            Create Profile
+          </button>
+          <button type="button" id="welcome-update-profile-btn" class="btn btn-secondary">
+            Update Quick Profile
+          </button>
+          <button type="button" id="welcome-history-btn" class="btn btn-ghost">
+            View History
+          </button>
+          <button type="button" id="welcome-profile-btn" class="btn btn-ghost">
+            Edit Profile
+          </button>
+        </div>
+      </form>
+
+      <div class="welcome-features">
+        <div class="feature-card">
+          <h3>Quick Expense Entry</h3>
+          <p>Log canteen, bus, books, and hostel costs in seconds with one-click presets.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Smart Budget Alerts</h3>
+          <p>Green, orange, and red progress bar warns you before your allowance runs out.</p>
+        </div>
+        <div class="feature-card">
+          <h3>History, Stats &amp; CSV</h3>
+          <p>Search past expenses, view category charts, and export CSV reports anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APPLICATION SHELL -->
+  <div id="app-shell" class="app-shell hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <span class="brand-logo" aria-hidden="true">₹</span>
+        <div>
+          <h1 class="brand-name">SpendSmart</h1>
+          <p class="brand-tagline">Hostel Expense Tracker</p>
+        </div>
+      </div>
+
+      <nav id="nav-menu" class="nav-menu">
+        <button type="button" id="nav-welcome-btn" class="nav-btn" data-section="welcome">
+          ✨ Welcome
+        </button>
+        <button type="button" class="nav-btn active" data-section="dashboard">
+          📊 Dashboard
+        </button>
+        <button type="button" class="nav-btn" data-section="history">
+          🧾 History
+        </button>
+        <button type="button" class="nav-btn" data-section="analytics">
+          📈 Analytics
+        </button>
+        <button type="button" class="nav-btn" data-section="profile">
+          🪪 Profile
+        </button>
+        <button type="button" class="nav-btn" data-section="settings">
+          ⚙️ Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-user">
+        <span id="sidebar-avatar" class="avatar-circle" aria-hidden="true">HS</span>
+        <div class="sidebar-user-info">
+          <strong id="sidebar-student-name">Hostel Student</strong>
+          <span id="sidebar-student-room">Room --</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="main-area">
+      <header class="topbar">
+        <div>
+          <h2 id="page-title" class="page-title">Dashboard</h2>
+          <p id="page-subtitle" class="page-subtitle">
+            Track daily hostel expenses and stay within your monthly budget
+          </p>
+        </div>
+        <div id="topbar-budget-pill" class="budget-pill">
+          Budget: Not set
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- SECTION 1: DASHBOARD -->
+        <section id="section-dashboard" class="page-section" aria-label="Dashboard">
+          <div class="kpi-grid">
+            <div class="card kpi-card">
+              <span class="summary-label">Total Spent</span>
+              <strong id="total-spent" class="summary-value">Rs. 0</strong>
+            </div>
+            <div class="card kpi-card">
+              <span class="summary-label">Budget Balance</span>
+              <strong id="kpi-budget-status" class="summary-value">Not set</strong>
+            </div>
+            <div class="card kpi-card">
+              <span class="summary-label">Highest Category</span>
+              <strong id="highest-category" class="summary-value">None yet</strong>
+            </div>
+            <div class="card kpi-card">
+              <span class="summary-label">Total Entries</span>
+              <strong id="total-count" class="summary-value">0</strong>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <!-- Left Column: Monthly Budget + Add/Edit Form -->
+            <div class="left-column">
+              <div class="card">
+                <h3 class="card-title">Monthly Budget</h3>
+                <div class="budget-form-row">
+                  <div class="field-group">
+                    <label for="budget-input">Budget (Rs.)</label>
+                    <input
+                      type="text"
+                      id="budget-input"
+                      inputmode="decimal"
+                      placeholder="e.g. 3000"
+                    />
+                  </div>
+                  <button type="button" id="set-budget-btn" class="btn btn-secondary">
+                    Set budget
+                  </button>
+                </div>
+                <p id="budget-error" class="error-text" aria-live="polite"></p>
+
+                <p id="budget-status" class="budget-status">
+                  Set a monthly budget to track remaining balance.
+                </p>
+                <p id="budget-warning" class="budget-warning hidden" role="alert"></p>
+
+                <div class="progress-track" aria-label="Budget usage progress">
+                  <div id="progress-bar" class="progress-bar bar-green"></div>
+                </div>
+                <p id="progress-label" class="progress-label">No budget set yet</p>
+              </div>
+
+              <div class="card">
+                <h3 id="form-heading" class="card-title">Add Expense</h3>
+                <div class="preset-section">
+                  <span class="preset-label">Quick Hostel Presets:</span>
+                  <div id="preset-buttons" class="preset-buttons">
+                    <button type="button" class="preset-chip" data-title="Canteen meal" data-amount="60" data-category="Food">Canteen Rs. 60</button>
+                    <button type="button" class="preset-chip" data-title="Tea &amp; snacks" data-amount="25" data-category="Food">Snacks Rs. 25</button>
+                    <button type="button" class="preset-chip" data-title="Auto / bus fare" data-amount="30" data-category="Travel">Travel Rs. 30</button>
+                    <button type="button" class="preset-chip" data-title="Laundry" data-amount="50" data-category="Other">Laundry Rs. 50</button>
+                    <button type="button" class="preset-chip" data-title="Xerox &amp; notes" data-amount="20" data-category="Books">Printout Rs. 20</button>
+                  </div>
+                </div>
+                <form id="expense-form" novalidate>
+                  <div class="field-group">
+                    <label for="title-input">Title</label>
+                    <input
+                      type="text"
+                      id="title-input"
+                      placeholder="e.g. Canteen lunch"
+                    />
+                    <p id="title-error" class="error-text" aria-live="polite"></p>
+                  </div>
+
+                  <div class="field-row">
+                    <div class="field-group">
+                      <label for="amount-input">Amount (Rs.)</label>
+                      <input
+                        type="text"
+                        id="amount-input"
+                        inputmode="decimal"
+                        placeholder="e.g. 80 or 12.50"
+                      />
+                      <p id="amount-error" class="error-text" aria-live="polite"></p>
+                    </div>
+
+                    <div class="field-group">
+                      <label for="category-input">Category</label>
+                      <select id="category-input">
+                        <option value="Food">Food</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Books">Books</option>
+                        <option value="Fun">Fun</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="date-input">Date</label>
+                    <input type="date" id="date-input" />
+                    <p id="date-error" class="error-text" aria-live="polite"></p>
+                  </div>
+
+                  <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn btn-primary">
+                      Add Expense
+                    </button>
+                    <button type="button" id="cancel-edit-btn" class="btn btn-ghost hidden">
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Right Column: Expenses List -->
+            <div class="right-column">
+              <div class="card">
+                <div class="list-header">
+                  <h3 class="card-title">Expenses</h3>
+                  <div class="filter-group">
+                    <label for="filter-category">Category:</label>
+                    <select id="filter-category">
+                      <option value="All">All</option>
+                      <option value="Food">Food</option>
+                      <option value="Travel">Travel</option>
+                      <option value="Books">Books</option>
+                      <option value="Fun">Fun</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <p id="filter-total" class="filter-total">Showing All: Rs. 0</p>
+
+                <ul id="expense-list" class="expense-list"></ul>
+                <p id="empty-message" class="empty-message hidden">No expenses yet</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: HISTORY -->
+        <section id="section-history" class="page-section hidden" aria-label="Expense history">
+          <div class="card">
+            <div class="history-controls">
+              <div class="field-group">
+                <label for="history-search">Search Title</label>
+                <input
+                  type="text"
+                  id="history-search"
+                  placeholder="Search canteen, bus, notebook..."
+                />
+              </div>
+
+              <div class="field-group">
+                <label for="history-filter-category">Category</label>
+                <select id="history-filter-category">
+                  <option value="All">All</option>
+                  <option value="Food">Food</option>
+                  <option value="Travel">Travel</option>
+                  <option value="Books">Books</option>
+                  <option value="Fun">Fun</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="history-sort">Sort By</label>
+                <select id="history-sort">
+                  <option value="newest">Newest date first</option>
+                  <option value="oldest">Oldest date first</option>
+                  <option value="highest">Highest amount</option>
+                  <option value="lowest">Lowest amount</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="history-summary-row">
+              <p id="history-summary" class="filter-total">Showing 0 expenses • Total: Rs. 0</p>
+              <button type="button" id="export-csv-btn" class="btn btn-secondary btn-small">
+                Download CSV
+              </button>
+            </div>
+            <p id="history-export-msg" class="error-text" aria-live="polite"></p>
+
+            <ul id="history-list" class="expense-list"></ul>
+            <p id="history-empty" class="empty-message hidden">No expenses yet</p>
+          </div>
+        </section>
+
+        <!-- SECTION 3: ANALYTICS -->
+        <section id="section-analytics" class="page-section hidden" aria-label="Spending analytics">
+          <div class="summary-grid analytics-cards">
+            <div class="card kpi-card">
+              <span class="summary-label">Average Expense</span>
+              <strong id="avg-expense" class="summary-value">Rs. 0</strong>
+            </div>
+            <div class="card kpi-card">
+              <span class="summary-label">Largest Single Expense</span>
+              <strong id="largest-expense" class="summary-value">None yet</strong>
+            </div>
+            <div class="card kpi-card">
+              <span class="summary-label">Safe Daily Spend (Rest of Month)</span>
+              <strong id="safe-daily-spend" class="summary-value">Set budget</strong>
+            </div>
+          </div>
+
+          <div class="analytics-workspace">
+            <div class="card">
+              <h3 class="card-title">Category Breakdown</h3>
+              <p class="section-note">
+                See how your hostel spending is divided across the five fixed categories.
+              </p>
+              <div id="analytics-bars" class="analytics-bars"></div>
+            </div>
+
+            <div class="card calc-card" aria-label="Interactive expense calculator">
+              <div class="calc-header">
+                <h3 class="card-title">Quick Split &amp; Calc</h3>
+                <span class="calc-badge">Keyboard Ready</span>
+              </div>
+
+              <div class="calc-screen">
+                <span id="calc-expression" class="calc-expression">0</span>
+                <strong id="calc-display" class="calc-display">0</strong>
+              </div>
+
+              <div id="calc-keypad" class="calc-grid">
+                <button type="button" class="calc-btn calc-btn-clear" data-action="clear">C</button>
+                <button type="button" class="calc-btn calc-btn-op" data-action="back">⌫</button>
+                <button type="button" class="calc-btn calc-btn-op" data-op="%">%</button>
+                <button type="button" class="calc-btn calc-btn-op" data-op="/">÷</button>
+
+                <button type="button" class="calc-btn" data-digit="7">7</button>
+                <button type="button" class="calc-btn" data-digit="8">8</button>
+                <button type="button" class="calc-btn" data-digit="9">9</button>
+                <button type="button" class="calc-btn calc-btn-op" data-op="*">×</button>
+
+                <button type="button" class="calc-btn" data-digit="4">4</button>
+                <button type="button" class="calc-btn" data-digit="5">5</button>
+                <button type="button" class="calc-btn" data-digit="6">6</button>
+                <button type="button" class="calc-btn calc-btn-op" data-op="-">−</button>
+
+                <button type="button" class="calc-btn" data-digit="1">1</button>
+                <button type="button" class="calc-btn" data-digit="2">2</button>
+                <button type="button" class="calc-btn" data-digit="3">3</button>
+                <button type="button" class="calc-btn calc-btn-op" data-op="+">+</button>
+
+                <button type="button" class="calc-btn calc-btn-zero" data-digit="0">0</button>
+                <button type="button" class="calc-btn" data-digit=".">.</button>
+                <button type="button" class="calc-btn calc-btn-equals" data-action="equals">=</button>
+              </div>
+
+              <div class="calc-extras">
+                <div id="calc-split-buttons" class="preset-buttons">
+                  <button type="button" class="preset-chip" data-split="2">Split ÷ 2</button>
+                  <button type="button" class="preset-chip" data-split="3">Split ÷ 3</button>
+                  <button type="button" class="preset-chip" data-split="4">Split ÷ 4</button>
+                </div>
+                <button type="button" id="calc-use-expense-btn" class="btn btn-primary btn-small">
+                  Use Amount in Add Expense
+                </button>
+              </div>
+              <p id="calc-feedback" class="error-text" aria-live="polite"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: PROFILE -->
+        <section id="section-profile" class="page-section hidden" aria-label="Student profile">
+          <div id="profile-onboarding-banner" class="onboarding-banner hidden" role="status">
+            <strong>Step 2 of 2 — Complete Your Student Card &amp; Photo:</strong>
+            Upload a profile photo and fill in all required details (*) below to unlock Dashboard, History &amp; Analytics.
+          </div>
+
+          <div class="profile-grid">
+            <div class="left-column">
+              <div class="card profile-preview">
+                <div class="student-id-ribbon">DIGITAL HOSTEL ID</div>
+                <div id="profile-avatar" class="profile-avatar-large" aria-hidden="true">HS</div>
+                <h3 id="profile-display-name" class="profile-name">Your Name</h3>
+                <p id="profile-display-college" class="profile-meta">Hostel / College</p>
+                <p id="profile-display-details" class="profile-meta">Room -- &bull; Course</p>
+                <p id="profile-display-roll" class="profile-meta">Roll No: --</p>
+                <p id="profile-display-emergency" class="profile-meta">Emergency: Not added</p>
+
+                <div class="photo-actions">
+                  <label
+                    for="profile-photo-input"
+                    id="photo-upload-label"
+                    class="btn btn-primary btn-small photo-upload-label"
+                    tabindex="0"
+                    role="button"
+                  >
+                    Choose Profile Photo *
+                  </label>
+                  <input
+                    type="file"
+                    id="profile-photo-input"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                  <button type="button" id="remove-photo-btn" class="btn btn-ghost btn-small hidden">
+                    Remove Photo
+                  </button>
+                </div>
+                <p id="profile-photo-error" class="error-text" aria-live="polite"></p>
+
+                <div class="profile-goal-box">
+                  <span class="summary-label">Monthly Allowance &amp; Saving Goal</span>
+                  <p id="profile-display-allowance" class="allowance-text">Allowance: Not set</p>
+                  <p id="profile-display-goal">Add your monthly saving goal</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h3 class="card-title">Update Monthly Budget</h3>
+                <p class="section-note">
+                  Adjust your hostel monthly spending limit directly from your profile.
+                </p>
+                <div class="budget-form-row">
+                  <div class="field-group">
+                    <label for="profile-budget-input">Monthly Budget (Rs.)</label>
+                    <input
+                      type="text"
+                      id="profile-budget-input"
+                      inputmode="decimal"
+                      placeholder="e.g. 3000"
+                    />
+                  </div>
+                  <button type="button" id="profile-budget-btn" class="btn btn-secondary">
+                    Update Budget
+                  </button>
+                </div>
+                <p id="profile-budget-error" class="error-text" aria-live="polite"></p>
+                <p id="profile-budget-msg" class="success-text hidden" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">Edit Student Profile</h3>
+              <div id="profile-autofill-box" class="autofill-box hidden">
+                <span class="autofill-label">⚡ Autofill Previous Profile</span>
+                <div class="autofill-row">
+                  <select id="profile-autofill-select" aria-label="Select previous profile to fill form"></select>
+                  <button type="button" id="profile-autofill-btn" class="btn btn-secondary btn-small">
+                    Autofill Form
+                  </button>
+                </div>
+              </div>
+              <form id="profile-form" novalidate>
+                <div class="field-row">
+                  <div class="field-group">
+                    <label for="profile-name">Full Name *</label>
+                    <input type="text" id="profile-name" placeholder="e.g. Aarav Sharma" />
+                    <p id="profile-name-error" class="error-text" aria-live="polite"></p>
+                  </div>
+                  <div class="field-group">
+                    <label for="profile-roll">Student ID / Roll No. *</label>
+                    <input type="text" id="profile-roll" placeholder="e.g. CS2026-01" />
+                    <p id="profile-roll-error" class="error-text" aria-live="polite"></p>
+                  </div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field-group">
+                    <label for="profile-college">Hostel / College *</label>
+                    <input type="text" id="profile-college" placeholder="e.g. Hostel Block B" />
+                    <p id="profile-college-error" class="error-text" aria-live="polite"></p>
+                  </div>
+                  <div class="field-group">
+                    <label for="profile-room">Room Number *</label>
+                    <input type="text" id="profile-room" placeholder="e.g. 204" />
+                    <p id="profile-room-error" class="error-text" aria-live="polite"></p>
+                  </div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field-group">
+                    <label for="profile-course">Course &amp; Semester *</label>
+                    <input type="text" id="profile-course" placeholder="e.g. B.Tech CSE - Sem 4" />
+                    <p id="profile-course-error" class="error-text" aria-live="polite"></p>
+                  </div>
+                  <div class="field-group">
+                    <label for="profile-allowance">Monthly Allowance (Rs.) *</label>
+                    <input
+                      type="text"
+                      id="profile-allowance"
+                      inputmode="decimal"
+                      placeholder="e.g. 4000"
+                    />
+                    <p id="profile-allowance-error" class="error-text" aria-live="polite"></p>
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <label for="profile-emergency">Parent / Emergency Contact (Optional)</label>
+                  <input type="text" id="profile-emergency" placeholder="e.g. +91 98765 43210" />
+                </div>
+
+                <div class="field-group">
+                  <label for="profile-goal">Saving Goal Note *</label>
+                  <input
+                    type="text"
+                    id="profile-goal"
+                    placeholder="e.g. Save Rs. 500 every month"
+                  />
+                  <p id="profile-goal-error" class="error-text" aria-live="polite"></p>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" id="profile-save-btn" class="btn btn-primary">
+                    Save Profile
+                  </button>
+                </div>
+                <p id="profile-saved-msg" class="success-text hidden" aria-live="polite">
+                  Profile saved successfully!
+                </p>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: SETTINGS -->
+        <section id="section-settings" class="page-section hidden" aria-label="App settings">
+          <div class="settings-grid">
+            <div class="card">
+              <h3 class="card-title">Appearance &amp; Budget</h3>
+
+              <div class="setting-row">
+                <div>
+                  <strong>Dark Mode</strong>
+                  <p class="section-note">Switch between light and dark theme.</p>
+                </div>
+                <button type="button" id="dark-mode-toggle" class="btn btn-ghost">
+                  Enable Dark Mode
+                </button>
+              </div>
+
+              <hr class="divider" />
+
+              <div class="field-group">
+                <label for="settings-budget-input">Monthly Budget (Rs.)</label>
+                <div class="budget-form-row">
+                  <input
+                    type="text"
+                    id="settings-budget-input"
+                    inputmode="decimal"
+                    placeholder="e.g. 3000"
+                  />
+                  <button type="button" id="settings-budget-btn" class="btn btn-secondary">
+                    Update Budget
+                  </button>
+                </div>
+                <p id="settings-budget-error" class="error-text" aria-live="polite"></p>
+                <p id="settings-budget-msg" class="success-text hidden" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">Account &amp; Data Management</h3>
+              <p class="section-note">
+                Switch student accounts, log out to the Welcome page, or reset your expense data.
+              </p>
+
+              <div class="data-actions">
+                <button type="button" id="logout-btn" class="btn btn-primary">
+                  Log Out
+                </button>
+                <button type="button" id="create-new-account-btn" class="btn btn-secondary">
+                  Create New Profile
+                </button>
+              </div>
+
+              <hr class="divider" />
+
+              <div class="data-actions">
+                <button type="button" id="reset-sample-btn" class="btn btn-ghost">
+                  Reset to Sample Data
+                </button>
+                <button type="button" id="clear-all-btn" class="btn delete-btn">
+                  Clear All Expenses
+                </button>
+              </div>
+
+              <div id="confirm-box" class="confirm-box hidden">
+                <p id="confirm-text"></p>
+                <div class="form-actions">
+                  <button type="button" id="confirm-yes-btn" class="btn btn-primary">
+                    Yes, Continue
+                  </button>
+                  <button type="button" id="confirm-no-btn" class="btn btn-ghost">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+
+              <p id="settings-data-msg" class="success-text hidden" aria-live="polite"></p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>SpendSmart &bull; Built for college hostel students to manage monthly spending.</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
